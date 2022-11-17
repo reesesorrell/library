@@ -27,27 +27,43 @@ function displayBooks(bookList) {
     for (let i = 0; i<bookList.length;  i++) {
         var bookCard = document.querySelector('.bookHolder');
 
-        var bookDisplay = document.createElement('div');
-        bookDisplay.classList.add('book');
-        bookDisplay.setAttribute('id', 'book' + (i + 1));
-        bookCard.appendChild(bookDisplay)
+        var bookDisplay = createDiv('', bookCard, 'book', 'book' + i);
 
-        var titleDisplay = document.createElement('div');
-        titleDisplay.innerHTML = bookList[i].title;
-        bookDisplay.appendChild(titleDisplay);
+        createDiv(bookList[i].title, bookDisplay);
+        createDiv(bookList[i].author, bookDisplay);
+        createDiv(bookList[i].pages, bookDisplay);
+        createDiv(bookList[i].haveRead, bookDisplay);
 
-        var authorDisplay = document.createElement('div');
-        authorDisplay.innerHTML = bookList[i].author;
-        bookDisplay.appendChild(authorDisplay);
-
-        var pageDisplay = document.createElement('div');
-        pageDisplay.innerHTML = bookList[i].pages;
-        bookDisplay.appendChild(pageDisplay);
-
-        var haveReadDisplay = document.createElement('div');
-        haveReadDisplay.innerHTML = bookList[i].haveRead;
-        bookDisplay.appendChild(haveReadDisplay);
+        var deleteBookButton = document.createElement('button');
+        deleteBookButton.innerHTML = 'Delete book';
+        deleteBookButton.onclick = deleteBook;
+        bookDisplay.appendChild(deleteBookButton);
     }
+}
+
+function createDiv(content, context, divClass, divId) {
+    var newDiv = document.createElement('div');
+    console.log('running')
+    if (content) {
+        newDiv.innerHTML = content;
+    }
+    if (divClass) {
+        newDiv.classList.add(divClass);
+    }
+    if (divId) {
+        newDiv.setAttribute('id', divId)
+    }
+    context.appendChild(newDiv);
+    return newDiv
+}
+
+function createInput(context, type) {
+    var newInput = document.createElement('input');
+    if (type) {
+        newInput.type = type;
+    }
+    context.appendChild(newInput);
+    return newInput;
 }
 
 function makeBookForm() {
@@ -55,39 +71,19 @@ function makeBookForm() {
     bookForm.classList.add('bookForm');
     document.body.appendChild(bookForm);
 
-    var titleIdentifier = document.createElement('div');
-    titleIdentifier.innerHTML = "Title: ";
-    bookForm.appendChild(titleIdentifier);
+    createDiv("Title: ", bookForm);
+    createInput(bookForm);
 
-    var titleInput = document.createElement('input');
-    bookForm.appendChild(titleInput);
+    createDiv("Author: ", bookForm);
+    createInput(bookForm);
 
-    var authorIdentifier = document.createElement('div');
-    authorIdentifier.innerHTML = "Author: ";
-    bookForm.appendChild(authorIdentifier);
+    createDiv("Page Count: ", bookForm);
+    createInput(bookForm, 'number');
 
-    var authorInput = document.createElement('input');
-    bookForm.appendChild(authorInput);
+    createDiv("Have you read it: ", bookForm);
+    createInput(bookForm, 'checkbox');
 
-    var pagesIdentifier = document.createElement('div');
-    pagesIdentifier.innerHTML = "Page Count: ";
-    bookForm.appendChild(pagesIdentifier);
-
-    var pagesInput = document.createElement('input');
-    pagesInput.type = 'number';
-    bookForm.appendChild(pagesInput);
-
-    var haveReadIdentifier = document.createElement('div');
-    haveReadIdentifier.innerHTML = "Have you read it: ";
-    bookForm.appendChild(haveReadIdentifier);
-
-    var haveReadInput = document.createElement('input');
-    haveReadInput.type = 'checkbox';
-    bookForm.appendChild(haveReadInput);
-
-    const submit = document.createElement('input')
-    submit.type = 'submit';
-    bookForm.appendChild(submit);
+    createInput(bookForm, 'submit');
 
     bookForm.addEventListener('submit', event => {
         const bookForm = event.target;
@@ -115,4 +111,11 @@ function makeBookForm() {
         event.preventDefault();
         bookForm.remove();
     });
+}
+
+function deleteBook() {
+    let parentId = this.parentNode.id;
+    let bookNumber = parentId.charAt(parentId.length - 1);
+    userLibrary.splice(bookNumber, 1);
+    displayBooks(userLibrary);
 }
