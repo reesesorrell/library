@@ -9,7 +9,7 @@ function Book(title, author, pages, haveRead) {
 
 function addBookToLibrary(bookInfo) {
     const book = new Book(bookInfo[0], bookInfo[1], bookInfo[2], bookInfo[3]);
-    userLibrary.push(book)
+    userLibrary.push(book);
 }
 
 function deleteChildren(selector) {
@@ -29,9 +29,9 @@ function displayBooks(bookList) {
 
         var bookDisplay = createDiv('', bookCard, 'book', 'book' + i);
 
-        createDiv(bookList[i].title, bookDisplay);
-        createDiv(bookList[i].author, bookDisplay);
-        createDiv(bookList[i].pages, bookDisplay);
+        createDiv(bookList[i].title, bookDisplay, 'bookTitle');
+        createDiv(bookList[i].author, bookDisplay, 'bookAuthor');
+        createDiv(bookList[i].pages + ' pages', bookDisplay, 'bookPages');
         if (bookList[i].haveRead) {
             var haveReadButton = document.createElement('button');
             haveReadButton.innerHTML = 'Have Read';
@@ -50,6 +50,7 @@ function displayBooks(bookList) {
 
         var deleteBookButton = document.createElement('button');
         deleteBookButton.innerHTML = 'Delete book';
+        deleteBookButton.classList.add('deleteBookButton');
         deleteBookButton.onclick = deleteBook;
         bookDisplay.appendChild(deleteBookButton);
     }

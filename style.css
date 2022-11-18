@@ -1,14 +1,49 @@
 body {
     margin: 0;
+    background-color: #65c4ac;
+}
+
+button {
+    font: inherit;
+    font-size: inherit;
+}
+
+.header {
+    background-color: #1ebdbe;
+    height: 15vh;
 }
 
 .bookHolder {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5vw;
+    padding: 5vh 15vw;
 }
 
 .book {
-    border: 1px solid red;
+    background-color: #ffcea9;
+    border-radius: 10px;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-around;
+    padding: 10px;
+    padding-top: 15px;
+    font-size: large;
+}
+
+.bookTitle {
+    font-size: 120%;
+}
+
+.bookAuthor {
+    color: gray;
+    font-style: italic;
+}
+
+.bookPages {
+    font-size: 90%;
 }
 
 .bookForm {
@@ -22,5 +57,52 @@ body {
 
 .haveReadButton {
     border: none;
-    background-color: white;
+    background-color: inherit;
+    color: inherit;
+    width: 50%;
+    height: 20%;
+    margin: 0 2px;
+    font-size: 90%;
 }
+
+.haveReadButton:hover,
+.deleteBookButton:hover {
+    cursor: pointer;
+    background-color: #f4a574;
+}
+
+#bookAdder {
+    border-radius: 25px;
+    box-shadow: 3px 5px #f4a574, 6px 10px #6ccfcb;
+    height: 12vh;
+    width: 18vw;
+    border: none;
+    background-color: #ff7a85;
+    color: #fefeff;
+    font-size: 150%;
+    display: block;
+    margin: auto;
+    margin-top: 4vh;
+}
+
+#bookAdder:hover {
+    cursor: pointer;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5vh;
+    background-color: #00b6a2;
+  }
+
+  .deleteBookButton {
+      border: none;
+      background-color: inherit;
+      display: block;
+      font-size: 90%;
+      width: 70%;
+      height: 20%;
+  }
