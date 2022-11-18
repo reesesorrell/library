@@ -19,3 +19,8 @@ body {
     height: 60vh;
     background-color: blue;
 }
+
+.haveReadButton {
+    border: none;
+    background-color: white;
+}

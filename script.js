@@ -32,7 +32,21 @@ function displayBooks(bookList) {
         createDiv(bookList[i].title, bookDisplay);
         createDiv(bookList[i].author, bookDisplay);
         createDiv(bookList[i].pages, bookDisplay);
-        createDiv(bookList[i].haveRead, bookDisplay);
+        if (bookList[i].haveRead) {
+            var haveReadButton = document.createElement('button');
+            haveReadButton.innerHTML = 'Have Read';
+            haveReadButton.classList.add('haveReadButton');
+            haveReadButton.onclick = swapHaveRead;
+            bookDisplay.appendChild(haveReadButton);
+        }
+        else {
+            var haveReadButton = document.createElement('button');
+            haveReadButton.innerHTML = 'Have Not Read';
+            haveReadButton.classList.add('haveReadButton');
+            haveReadButton.onclick = swapHaveRead;
+            bookDisplay.appendChild(haveReadButton);
+        }
+        
 
         var deleteBookButton = document.createElement('button');
         deleteBookButton.innerHTML = 'Delete book';
@@ -41,9 +55,15 @@ function displayBooks(bookList) {
     }
 }
 
+function swapHaveRead() {
+    let bookId = this.parentNode.id;
+    let bookNumber = bookId.charAt(bookId.length - 1);
+    userLibrary[bookNumber].haveRead = !userLibrary[bookNumber].haveRead;
+    displayBooks(userLibrary);
+}
+
 function createDiv(content, context, divClass, divId) {
     var newDiv = document.createElement('div');
-    console.log('running')
     if (content) {
         newDiv.innerHTML = content;
     }
@@ -90,12 +110,7 @@ function makeBookForm() {
         let bookInfo = [];
         Array.from(bookForm.elements).forEach(i => {
             if (i.type == 'checkbox') {
-                if (i.checked) {
-                    bookInfo.push('Read');
-                }
-                else {
-                    bookInfo.push('Not Read Yet');
-                }
+                bookInfo.push(i.checked);
             }
             else {
                 if (i.value) {
