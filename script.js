@@ -78,10 +78,13 @@ function createDiv(content, context, divClass, divId) {
     return newDiv
 }
 
-function createInput(context, type) {
+function createInput(context, type, divClass) {
     var newInput = document.createElement('input');
     if (type) {
         newInput.type = type;
+    }
+    if (divClass) {
+        newInput.classList.add(divClass);
     }
     context.appendChild(newInput);
     return newInput;
@@ -92,19 +95,21 @@ function makeBookForm() {
     bookForm.classList.add('bookForm');
     document.body.appendChild(bookForm);
 
-    createDiv("Title: ", bookForm);
-    createInput(bookForm);
+    createDiv("Create a new book ", bookForm, 'formIntro');
 
-    createDiv("Author: ", bookForm);
-    createInput(bookForm);
+    createDiv("Title: ", bookForm, 'formTitle');
+    createInput(bookForm, '', 'bookInput');
 
-    createDiv("Page Count: ", bookForm);
-    createInput(bookForm, 'number');
+    createDiv("Author: ", bookForm, 'formAuthor');
+    createInput(bookForm,  '', 'bookInput');
 
-    createDiv("Have you read it: ", bookForm);
-    createInput(bookForm, 'checkbox');
+    createDiv("Page Count: ", bookForm, 'formPageCount');
+    createInput(bookForm, 'number', 'bookInput');
 
-    createInput(bookForm, 'submit');
+    createDiv("Have you read it: ", bookForm, 'formHaveRead');
+    createInput(bookForm, 'checkbox', 'bookCheckbox');
+
+    createInput(bookForm, 'submit', 'formSubmit');
 
     bookForm.addEventListener('submit', event => {
         const bookForm = event.target;
